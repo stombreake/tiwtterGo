@@ -49,7 +49,7 @@ func ExecuteLambda(ctx context.Context, request events.APIGatewayProxyRequest) (
 		return res, nil
 	}
 
-	path := strings.Replace(request.PathParameters["twitter"], os.Getenv("URLPrefix"), "", -1)
+	path := strings.Replace(request.PathParameters["twittergo"], os.Getenv("UrlPrefix"), "", -1)
 
 	awsgo.Ctx = context.WithValue(awsgo.Ctx, models.Key("path"), path)
 	awsgo.Ctx = context.WithValue(awsgo.Ctx, models.Key("method"), request.HTTPMethod)
@@ -103,7 +103,7 @@ func ValidParameters() bool {
 	if !traeParametro {
 		return traeParametro
 	}
-	_, traeParametro = os.LookupEnv("URLPrefix")
+	_, traeParametro = os.LookupEnv("UrlPrefix")
 
 	if !traeParametro {
 		return traeParametro
