@@ -28,7 +28,7 @@ func ExecuteLambda(ctx context.Context, request events.APIGatewayProxyRequest) (
 	if !ValidParameters() {
 		res = &events.APIGatewayProxyResponse{
 			StatusCode: 400,
-			Body:       "Error en las variables de entorno, deben incluir 'SecretName','BucketName','URLPrfix' ",
+			Body:       "Error en las variables de entorno, deben incluir 'SecretName','BucketName','UrlPrefix' ",
 			Headers: map[string]string{
 				"content-type": "application/json",
 			},
@@ -70,20 +70,19 @@ func ExecuteLambda(ctx context.Context, request events.APIGatewayProxyRequest) (
 			StatusCode: 500,
 			Body:       "Error conectando la BD " + err.Error(),
 			Headers: map[string]string{
-				"content-type": "application/json",
+				"Content-Type": "application/json",
 			},
 		}
 		return res, nil
 	}
 
 	respAPI := handlers.Manejadores(awsgo.Ctx, request)
-
 	if respAPI.CustomResp == nil {
 		res = &events.APIGatewayProxyResponse{
 			StatusCode: respAPI.Status,
 			Body:       respAPI.Message,
 			Headers: map[string]string{
-				"content-type": "application/json",
+				"Content-Type": "application/json",
 			},
 		}
 		return res, nil
